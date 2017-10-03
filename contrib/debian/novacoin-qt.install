@@ -1,5 +1,0 @@
-DueCoin-qt usr/bin
-share/pixmaps/DueCoin32.xpm usr/share/pixmaps
-share/pixmaps/DueCoin80.xpm usr/share/pixmaps
-debian/DueCoin-qt.desktop usr/share/applications
-debian/DueCoin-qt.protocol usr/share/kde4/services/
