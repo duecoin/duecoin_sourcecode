@@ -1,0 +1,68 @@
+#!/bin/sh
+
+# PROVIDE: DueCoin
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+#
+# Add the following lines to /etc/rc.conf.local or /etc/rc.conf
+# to enable this service:
+#
+# DueCoin_enable (bool): Set to NO by default. Set this variable to YES if you want to enable DueCoin service.
+# DueCoin_config (path): Set to /usr/local/etc/DueCoin.conf by default.
+# DueCoin_user:  The user account DueCoin daemon runs as. It uses 'root' user by default.
+# DueCoin_group: The group account DueCoin daemon runs as. It uses 'wheel' group by default.
+# DueCoin_datadir (str): Default to "/var/db/DueCoin". Base data directory.
+
+. /etc/rc.subr
+
+name=DueCoin
+rcvar=DueCoin_enable
+
+: ${DueCoin_enable:=NO}
+: ${DueCoin_config=/usr/local/etc/DueCoin.conf}
+: ${DueCoin_datadir=/var/db/DueCoin}
+: ${DueCoin_user="root"}
+: ${DueCoin_group="wheel"}
+
+required_files=${DueCoin_config}
+command=/usr/local/bin/DueCoind
+DueCoin_chdir=${DueCoin_datadir}
+pidfile="${DueCoin_datadir}/DueCoind.pid"
+stop_cmd=DueCoin_stop
+command_args="-conf=${DueCoin_config} -datadir=${DueCoin_datadir} -daemon -pid=${pidfile}"
+start_precmd="${name}_prestart"
+
+DueCoin_create_datadir()
+{
+	echo "Creating data directory"
+	eval mkdir -p ${DueCoin_datadir}
+	[ $? -eq 0 ] && chown -R ${DueCoin_user}:${DueCoin_group} ${DueCoin_datadir}
+}
+
+DueCoin_prestart()
+{
+	if [ ! -d "${DueCoin_datadir}/." ]; then
+		DueCoin_create_datadir || return 1
+	fi
+}
+
+DueCoin_requirepidfile()
+{
+	if [ ! "0`check_pidfile ${pidfile} ${command}`" -gt 1 ]; then
+		echo "${name} not running? (check $pidfile)."
+		exit 1
+	fi
+}
+
+DueCoin_stop()
+{
+    DueCoin_requirepidfile
+
+	echo "Stopping ${name}."
+	eval ${command} -conf=${DueCoin_config} -datadir=${DueCoin_datadir} stop
+	wait_for_pids ${rc_pid}
+}
+
+load_rc_config $name
+run_rc_command "$1"

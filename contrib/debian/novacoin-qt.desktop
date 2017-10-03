@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=DueCoin
+Comment=DueCoin P2P Cryptocurrency
+Comment[ru]=DueCoin, P2P криптовалюта
+Comment[fr]=DueCoin, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=DueCoin, eşten eşe kriptografik sanal para birimi
+Exec=/usr/bin/DueCoin-qt
+Terminal=false
+Type=Application
+Icon=/usr/share/pixmaps/DueCoin80.xpm
+MimeType=x-scheme-handler/DueCoin;
+Categories=Office;
