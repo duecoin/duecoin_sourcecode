@@ -1,2 +1,2 @@
-# duecoin_sourcecode
-Tech sourcecode for our coin
+RPC Port: 25520
+Network Port: 25524
