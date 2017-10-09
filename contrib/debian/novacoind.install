@@ -1,0 +1,2 @@
+debian/bin/DueCoind usr/bin
+src/DueCoind usr/lib/DueCoin

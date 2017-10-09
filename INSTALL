@@ -1,0 +1,9 @@
+Building DueCoin
+
+See doc/readme-qt.rst for instructions on building DueCoin Qt,
+the intended-for-end-users, nice-graphical-interface, reference
+implementation of DueCoin.
+
+See doc/build-*.txt for instructions on building DueCoind,
+the intended-for-services, no-graphical-interface, reference
+implementation of DueCoin.

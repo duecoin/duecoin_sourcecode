@@ -1,0 +1,11 @@
+[Unit]
+Description=DueCoin daemon serivce
+After=network.target
+
+[Service]
+Type=simple
+User=DueCoin
+ExecStart=/opt/DueCoin/DueCoind
+
+[Install]
+WantedBy=multi-user.target
