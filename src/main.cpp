@@ -1055,6 +1055,9 @@ CBigNum inline GetProofOfStakeLimit(int nHeight, unsigned int nTime)
 int64_t GetProofOfWorkReward(unsigned int nBits, int64_t nFees, int nHeight)
 {
     int64_t nSubsidy = 300 * COIN;
+	
+	if (nHeight > 14000)
+		nSubsidy = 1200 * COIN;
     
 	// Force block reward to zero when right shift is undefined.
     int halvings = nHeight / 280000;
